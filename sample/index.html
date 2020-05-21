@@ -26,11 +26,30 @@
 	<p>You can use this sample to validate whether your <a href="https://ckeditor.com/docs/ckeditor5/latest/builds/guides/development/custom-builds.html">custom build</a> works fine.</p>
 </div>
 
+<h2>The output of editor</h2>
+<pre id="output"></pre>
+
 <script src="../build/ckeditor.js"></script>
 <script>
-	ClassicEditor.create( document.querySelector( '#editor' ) )
+	ClassicEditor.create( document.querySelector( '#editor' ), {
+		// extraPlugins: [Markdown],
+		// removePlugins: ['Markdown'],
+		mention: {
+			feeds: [
+				{
+					marker: '@',
+					feed: [ '@Barney', '@Lily', '@Marshall', '@Robin', '@Ted' ],
+					// minimumCharacters: 1
+				}
+			]
+		}
+	} )
 		.then( editor => {
 			window.editor = editor;
+			editor.model.document.on( 'change:data', () => {
+				console.log( 'The data has changed!' );
+				document.getElementById('output').innerHTML = editor.getData();
+			} );
 		} )
 		.catch( error => {
 			console.error( 'There was a problem initializing the editor.', error );

@@ -31,6 +31,12 @@ import TableToolbar from '@ckeditor/ckeditor5-table/src/tabletoolbar';
 import TextTransformation from '@ckeditor/ckeditor5-typing/src/texttransformation';
 // Custom plugins
 import Mention from '@ckeditor/ckeditor5-mention/src/mention';
+import GFMDataProcessor from '@ckeditor/ckeditor5-markdown-gfm/src/gfmdataprocessor';
+
+// Simple plugin which loads the data processor.
+function Markdown( editor ) {
+	editor.data.processor = new GFMDataProcessor( editor.editing.view.document );
+}
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
@@ -60,7 +66,8 @@ ClassicEditor.builtinPlugins = [
 	TableToolbar,
 	TextTransformation,
 	// Custom plugins
-	Mention
+	Mention,
+	Markdown
 ];
 
 // Editor configuration.
@@ -78,10 +85,10 @@ ClassicEditor.defaultConfig = {
 			'indent',
 			'outdent',
 			'|',
-			'imageUpload',
+			// 'imageUpload',
 			'blockQuote',
-			'insertTable',
-			'mediaEmbed',
+			// 'insertTable',
+			// 'mediaEmbed',
 			'undo',
 			'redo'
 		]
