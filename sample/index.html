@@ -28,7 +28,15 @@
 
 <script src="../build/ckeditor.js"></script>
 <script>
-	ClassicEditor.create( document.querySelector( '#editor' ) )
+	ClassicEditor.create( document.querySelector( '#editor' ), {
+		simpleUpload: {
+			uploadUrl: 'https://71645.cdn.cke-cs.com/',
+			headers: {
+				whoami: 'admin',
+				hello: 'there'
+			}
+		}
+	} )
 		.then( editor => {
 			window.editor = editor;
 		} )
